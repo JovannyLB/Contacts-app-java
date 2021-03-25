@@ -5,7 +5,18 @@
     <string name="password">Password</string>
     <string name="log_in">LOG IN</string>
     <string name="sign_in">SIGN IN</string>
-<!--    List-->
+    <!--    List-->
     <string name="contacts_title">Agenda</string>
     <string name="add_button">ADD</string>
+    <!--    Add Item-->
+    <string name="address">Address</string>
+    <string name="phone">Phone</string>
+    <string name="type">Type</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
+    <string-array name="contact_type">
+        <item>Casa</item>
+        <item>Trabalho</item>
+        <item>Outro</item>
+    </string-array>
 </resources>
