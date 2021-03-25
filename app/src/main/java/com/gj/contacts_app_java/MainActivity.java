@@ -23,9 +23,8 @@ public class MainActivity extends AppCompatActivity {
         if(editTextTextPersonName.trim().length() > 0 && !editTextTextPersonName.isEmpty() &&
                 editTextTextPassword.trim().length() > 0 && !editTextTextPassword.isEmpty()){
             if(editTextTextPersonName.equals("Gabriel") && editTextTextPassword.equals("secret")){
-//                Intent intent = new Intent(this, Gallery.class);
-//                intent.putExtra("EXTRA_USERNAME", editTextTextPersonName);
-//                startActivity(intent);
+                Intent intent = new Intent(this, ListActivity.class);
+                startActivity(intent);
             } else {
 //                showWrongCredentialsDialog();
             }

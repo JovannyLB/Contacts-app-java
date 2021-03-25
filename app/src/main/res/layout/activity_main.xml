@@ -57,7 +57,6 @@
         android:layout_marginTop="15dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:autofillHints="@string/name_autofill_hint"
         android:hint="@string/name"
         app:layout_constraintEnd_toStartOf="@+id/verticalGuideline1"
         app:layout_constraintStart_toStartOf="@+id/verticalGuideline0"
