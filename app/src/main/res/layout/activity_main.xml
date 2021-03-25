@@ -6,13 +6,96 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <!--Guidelines-->
+    <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/verticalGuideline0"
+        app:layout_constraintGuide_percent="0.1"
+        android:orientation="vertical"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/verticalGuideline1"
+        app:layout_constraintGuide_percent="0.9"
+        android:orientation="vertical"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalGuideline0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.06"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalGuideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.94"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Content-->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/login"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuideline1"
+        app:layout_constraintStart_toStartOf="@+id/verticalGuideline0"
+        app:layout_constraintTop_toTopOf="@+id/horizontalGuideline0" />
+
+    <!--Inputs-->
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:autofillHints="@string/name_autofill_hint"
+        android:hint="@string/name"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuideline1"
+        app:layout_constraintStart_toStartOf="@+id/verticalGuideline0"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/editTextTextPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="@string/password"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuideline1"
+        app:layout_constraintStart_toStartOf="@+id/verticalGuideline0"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+    <!--Buttons-->
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/log_in"
+        android:onClick="login"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuideline1"
+        app:layout_constraintStart_toStartOf="@+id/verticalGuideline0"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+
+    <Button
+        android:id="@+id/signinButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/sign_in"
+        android:onClick="signIn"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuideline1"
+        app:layout_constraintStart_toStartOf="@+id/verticalGuideline0"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

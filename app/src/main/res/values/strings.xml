@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Contacts-app-java</string>
+    <string name="login">Login</string>
+    <string name="name">Name</string>
+    <string name="name_autofill_hint">Spongebob</string>
+    <string name="password">Password</string>
+    <string name="log_in">LOG IN</string>
+    <string name="sign_in">SIGN IN</string>
 </resources>
