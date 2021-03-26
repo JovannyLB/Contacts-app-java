@@ -7,4 +7,18 @@
     <string name="loginButton">LOG IN</string>
     <string name="signUpButton">SIGN UP</string>
     <string name="cancelButton">CANCEL</string>
+
+    <string name="contacts_title">Agenda</string>
+    <string name="add_button">ADD</string>
+
+    <string name="address">Address</string>
+    <string name="phone">Phone</string>
+    <string name="type">Type</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
+    <string-array name="contact_type">
+        <item>Casa</item>
+        <item>Trabalho</item>
+        <item>Outro</item>
+    </string-array>
 </resources>
