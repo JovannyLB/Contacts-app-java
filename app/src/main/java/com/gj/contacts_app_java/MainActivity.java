@@ -2,51 +2,92 @@ package com.gj.contacts_app_java;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
+
+    private EditText textUsername, textPassword;
+
+    private SharedPreferences accountData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Gets and sets the inputs to their respective variables
+        textUsername = (EditText) findViewById(R.id.editTextUsername);
+        textPassword = (EditText) findViewById(R.id.editTextPassword);
+
+        // Gets the account list from shared preferences
+        accountData = getSharedPreferences("accountData", MODE_PRIVATE);
+
+        // Clears account list
+//        accountData.edit().clear().apply();
     }
 
-
-    public void login(View view) {
-        String editTextTextPersonName = ((EditText) findViewById(R.id.editTextTextPersonName)).getText().toString();
-        String editTextTextPassword = ((EditText) findViewById(R.id.editTextTextPassword)).getText().toString();
-
-        if(editTextTextPersonName.trim().length() > 0 && !editTextTextPersonName.isEmpty() &&
-                editTextTextPassword.trim().length() > 0 && !editTextTextPassword.isEmpty()){
-            if(editTextTextPersonName.equals("Gabriel") && editTextTextPassword.equals("secret")){
-//                Intent intent = new Intent(this, Gallery.class);
-//                intent.putExtra("EXTRA_USERNAME", editTextTextPersonName);
-//                startActivity(intent);
-            } else {
-//                showWrongCredentialsDialog();
-            }
+    // Tries to perform the login of an account, if there is given information
+    public void Login(View view) {
+        // When the login button is pressed, checks if the fields are empty, if not, proceeds with the login
+        if (textUsername.getText().toString().equals("") || textPassword.getText().toString().equals("")) {
+            EmptyFieldsAlert();
         } else {
-//            showEmptyFieldsDialog();
+            LoginAction();
         }
     }
 
-    public void signIn(View view) {
-//        Log.i("text", "SIGN IN");
+    // When the sign up button is pressed, goes to the sign up activity
+    public void SignUp(View view) {
+        Intent intent = new Intent(this, SignUp.class);
+        startActivity(intent);
+    }
 
-        String editTextTextPersonName = ((EditText) findViewById(R.id.editTextTextPersonName)).getText().toString();
-        String editTextTextPassword = ((EditText) findViewById(R.id.editTextTextPassword)).getText().toString();
+    // Tries to perform the login of an account, using the given information
+    private void LoginAction(){
+        // Creates the set that will be used to check if the account, based on the given username, exists or not
+        Set<String> noUserSet = new HashSet<String>();
+        noUserSet.add("Account does not exist");
 
-        if(editTextTextPersonName.trim().length() > 0 && !editTextTextPersonName.isEmpty() &&
-                editTextTextPassword.trim().length() > 0 && !editTextTextPassword.isEmpty()){
-//            Intent intent = new Intent(this, Gallery.class);
-//            intent.putExtra("EXTRA_USERNAME", editTextTextPersonName);
-//            startActivity(intent);
-        } else {
-//            showEmptyFieldsDialog();
+        // Gets the account data from the account list, based on the given username
+        Set<String> dataUsernameSet = accountData.getStringSet(textUsername.getText().toString().toLowerCase() + "_account", noUserSet);
+
+        // Checks if the account, based on the given username, exists or not
+        if (dataUsernameSet.equals(noUserSet)) {
+            WrongInfoAlert();
+            return;
         }
+
+        // Transforms the account data ser into an array
+        String[] dataUsernameArray = dataUsernameSet.toArray(new String[dataUsernameSet.size()]);
+
+        // Checks if the info provided is the same as the account info, based on the given username, if it is, logs in
+        if (dataUsernameArray[0].equals(textUsername.getText().toString().toLowerCase()) && dataUsernameArray[1].equals(textPassword.getText().toString())) {
+            // Alerts the user that the login was successful
+            Toast.makeText(MainActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
+            // Creates the user singleton and feeds it the required info
+            User.GetInstance().FeedInstance(dataUsernameSet);
+        } else {
+            WrongInfoAlert();
+        }
+    }
+
+    // Alerts the user that the fields are empty
+    private void EmptyFieldsAlert(){
+        new AlertDialog.Builder(this).setTitle("Empty field(s)").setCancelable(true).setPositiveButton("Ok", ((DialogInterface dialog, int which) -> {})).show();
+    }
+
+    // Alerts the user that the fields are wrong
+    private void WrongInfoAlert(){
+        new AlertDialog.Builder(this).setTitle("Wrong username or password").setCancelable(true).setPositiveButton("Ok", ((DialogInterface dialog, int which) -> {})).show();
     }
 }
