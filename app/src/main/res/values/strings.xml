@@ -1,14 +1,16 @@
 <resources>
-    <string name="app_name">Contacts-app-java</string>
-    <string name="login">Login</string>
-    <string name="name">Name</string>
-    <string name="password">Password</string>
-    <string name="log_in">LOG IN</string>
-    <string name="sign_in">SIGN IN</string>
-    <!--    List-->
+    <string name="app_name">Contacts</string>
+    <string name="loginTitle">Login</string>
+    <string name="signUpTitle">Sign Up</string>
+    <string name="usernameHint">Username</string>
+    <string name="passwordHint">Password</string>
+    <string name="loginButton">LOG IN</string>
+    <string name="signUpButton">SIGN UP</string>
+    <string name="cancelButton">CANCEL</string>
+
     <string name="contacts_title">Agenda</string>
     <string name="add_button">ADD</string>
-    <!--    Add Item-->
+
     <string name="address">Address</string>
     <string name="phone">Phone</string>
     <string name="type">Type</string>

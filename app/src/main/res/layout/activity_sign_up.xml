@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".SignUp">
 
     <!--Guidelines-->
     <androidx.constraintlayout.widget.Guideline
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="@string/loginTitle"
+        android:text="@string/signUpTitle"
         android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/verticalGuideline1"
         app:layout_constraintStart_toStartOf="@+id/verticalGuideline0"
@@ -56,8 +56,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:ems="10"
-        android:hint="@string/usernameHint"
         android:inputType="textPersonName"
+        android:hint="@string/usernameHint"
         app:layout_constraintEnd_toStartOf="@+id/verticalGuideline1"
         app:layout_constraintStart_toStartOf="@+id/verticalGuideline0"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -80,8 +80,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:onClick="Login"
-        android:text="@string/loginButton"
+        android:text="@string/signUpButton"
         app:layout_constraintEnd_toStartOf="@+id/verticalGuideline1"
         app:layout_constraintStart_toStartOf="@+id/verticalGuideline0"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
@@ -91,8 +90,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:onClick="SignUp"
-        android:text="@string/signUpButton"
+        android:text="@string/cancelButton"
         app:layout_constraintEnd_toStartOf="@+id/verticalGuideline1"
         app:layout_constraintStart_toStartOf="@+id/verticalGuideline0"
         app:layout_constraintTop_toBottomOf="@+id/createAccountButton" />
