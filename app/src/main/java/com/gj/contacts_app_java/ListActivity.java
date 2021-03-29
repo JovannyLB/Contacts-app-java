@@ -2,89 +2,112 @@ package com.gj.contacts_app_java;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
 
     private ListView listView;
-    ArrayList<Contact> contactArrayList ;
+    private SharedPreferences accountData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+        accountData = getSharedPreferences("accountData", MODE_PRIVATE);
+
         //Set List View Content
-        listView = findViewById(R.id.listView);
-
-        contactArrayList = new ArrayList<>();
-        dataSaving();
-        CustomAdapter adapter = new CustomAdapter(this,contactArrayList);
-        listView.setAdapter(adapter);
-
-//        List<String> your_array_list = new ArrayList<String>();
-//        your_array_list.add("foo");
-//        your_array_list.add("bar");
-//        your_array_list.add("bbr");
-//        your_array_list.add("bcr");
-//        your_array_list.add("bdr");
-//        your_array_list.add("ber");
-//        your_array_list.add("bfr");
-//        your_array_list.add("bgr");
-//        your_array_list.add("bhr");
-//        your_array_list.add("bir");
-//        your_array_list.add("bjr");
-//        your_array_list.add("bkr");
-//        your_array_list.add("blr");
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-//                this,
-//                android.R.layout.simple_list_item_1,
-//                your_array_list );
-//
-//        listView.setAdapter(arrayAdapter);
+        MountListView();
     }
 
     public void addItem(View view) {
         Intent intent = new Intent(this, AddItemActivity.class);
-        startActivityForResult(intent, 0);
+        startActivity(intent);
 //        startActivity(intent);
     }
 
-    private void dataSaving() {
+    private void MountListView() {
+        String fileName = "storage.json";
+        String currentUser = accountData.getString("currentUser", "");
 
-        Contact student = new Contact();
-        student.setName("Jorge");
-        student.setPhone("876543210");
-        student.setAddress("Hyderabad");
-        student.setType("Outro");
-        contactArrayList.add(student);
+        ArrayList<Contact> contactArrayList = new ArrayList<>();
 
-        student = new Contact();
-        student.setName("Pedro");
-        student.setPhone("120067890");
-        student.setAddress("Bangadlore");
-        student.setType("Casa");
-        contactArrayList.add(student);
+        if (IsFilePresent(getApplicationContext(), fileName)) {
+            //Possui arquivo
+            String currentJsonString = Read(getApplicationContext(), fileName);
 
-        student = new Contact();
-        student.setName("Brian");
-        student.setPhone("18887890");
-        student.setAddress("Banddglore");
-        student.setType("Casa");
-        contactArrayList.add(student);
+            try {
+                JSONObject contactsObject = new JSONObject(currentJsonString);
 
-        student = new Contact();
-        student.setName("Carlos");
-        student.setPhone("1234567890");
-        student.setAddress("Banglore");
-        student.setType("Trabalho");
-        contactArrayList.add(student);
+                if (contactsObject.has(currentUser)) {
+                    JSONArray contactsJSONArray = contactsObject.getJSONArray(currentUser);
+
+                    for (int i = 0; i < contactsJSONArray.length(); i++) {
+                        JSONObject currentContact = contactsJSONArray.getJSONObject(i);
+
+                        contactArrayList.add(
+                                new Contact(
+                                        currentContact.get("name").toString(),
+                                        currentContact.get("phone").toString(),
+                                        currentContact.get("address").toString(),
+                                        currentContact.get("type").toString()
+                                )
+                        );
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("ERRO", e.getMessage());
+            }
+        }
+
+        listView = findViewById(R.id.listView);
+        CustomAdapter adapter = new CustomAdapter(this, contactArrayList);
+        listView.setAdapter(adapter);
+    }
+
+    private String Read(Context context, String fileName) {
+        try {
+            FileInputStream fis = context.openFileInput(fileName);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+            return sb.toString();
+        } catch (FileNotFoundException fileNotFound) {
+            return null;
+        } catch (IOException ioException) {
+            return null;
+        }
+    }
+
+    public boolean IsFilePresent(Context context, String fileName) {
+        String path = context.getFilesDir().getAbsolutePath() + "/" + fileName;
+        File file = new File(path);
+        return file.exists();
     }
 }

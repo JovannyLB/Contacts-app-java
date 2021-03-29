@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Gets and sets the inputs to their respective variables
-        textUsername = (EditText) findViewById(R.id.editTextUsername);
-        textPassword = (EditText) findViewById(R.id.editTextPassword);
+        textUsername = findViewById(R.id.editTextUsername);
+        textPassword = findViewById(R.id.editTextPassword);
 
         // Gets the account list from shared preferences
         accountData = getSharedPreferences("accountData", MODE_PRIVATE);
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     // Tries to perform the login of an account, using the given information
     private void LoginAction(){
         // Creates the set that will be used to check if the account, based on the given username, exists or not
-        Set<String> noUserSet = new HashSet<String>();
+        Set<String> noUserSet = new HashSet<>();
         noUserSet.add("Account does not exist");
 
         // Gets the account data from the account list, based on the given username
@@ -76,9 +76,17 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
             // Creates the user singleton and feeds it the required info
             User.GetInstance().FeedInstance(dataUsernameSet);
+            //Set currentuser and Load next activity
+            accountData.edit().putString("currentUser", textUsername.getText().toString().toLowerCase()).apply();
+            LoadNextActivity();
         } else {
             WrongInfoAlert();
         }
+    }
+
+    private void LoadNextActivity(){
+        Intent intent = new Intent(this, ListActivity.class);
+        startActivityForResult(intent, 0);
     }
 
     // Alerts the user that the fields are empty

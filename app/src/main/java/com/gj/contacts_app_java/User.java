@@ -2,6 +2,8 @@ package com.gj.contacts_app_java;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class User {

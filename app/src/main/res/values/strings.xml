@@ -11,6 +11,7 @@
     <string name="contacts_title">Agenda</string>
     <string name="add_button">ADD</string>
 
+    <string name="name">Name</string>
     <string name="address">Address</string>
     <string name="phone">Phone</string>
     <string name="type">Type</string>

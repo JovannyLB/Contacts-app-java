@@ -1,7 +1,14 @@
 package com.gj.contacts_app_java;
 
 public class Contact {
-    String name, phone, address, type;
+    private String name, phone, address, type;
+
+    Contact(String name, String phone, String address, String type){
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.type = type;
+    }
 
     public String getName() {
         return name;
